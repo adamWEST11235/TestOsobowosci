@@ -1,0 +1,20 @@
+
+services:
+  mssql_2:
+    image: mcr.microsoft.com/mssql/server:2019-latest  # Możesz wybrać inną wersję
+    container_name: msSQL_01
+    ports:
+      - "1433:1433"  # Mapowanie portów: 1433 to domyślny port SQL Server
+    environment:
+      SA_PASSWORD: "Szkolenie2024!"  # Ustaw silne hasło
+      ACCEPT_EULA: "Y"  # Akceptacja licencji SQL Server
+    volumes:
+      - ./data:/var/opt/mssql/data # Montowanie wolumenu dla trwałego przechowywania danych
+    networks:
+      - sql_network
+    restart: unless-stopped
+
+networks:
+  sql_network:
+    driver: bridge  # Domyślna sieć mostkowa Docker
+
